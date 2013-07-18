@@ -46,7 +46,7 @@ Follow steps below to submit your answers/scripts.
 
 4. Encapsulate every (answer) folders into one folder/ Put it on Github. See example at https://github.com/juacompe/code_battle_sample.
 
-5. Give us the link that we can clone your code.
+5. Give us the link that we can clone your code. Send email to code.battle@shogunvps.com
 
 6. Join the event.
 
@@ -70,7 +70,7 @@ Problems
 
 4. รวบรวมทุกโฟลเดอร์ของคุณเอาไว้ แล้วนำไปไว้ที่ ไปไว้ที่ GitHub ดูตัวอย่างได้ที่ https://github.com/juacompe/code_battle_sample.
 
-5. ส่ง link ที่ได้จากข้อ 4. มาให้เรา เพื่อที่เราจะได้ clone โค้ดออกมารันได้
+5. ส่ง link ที่ได้จากข้อ 4. มาให้เรา เพื่อที่เราจะได้ clone โค้ดออกมารันได้ โปรดส่งมาที่  code.battle@shogunvps.com
 
 6. มาร่วมงาน
 
