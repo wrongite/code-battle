@@ -1,4 +1,4 @@
-// gcc -O3 best_script.c 
+// gcc -O2 best_script.c 
 
 #ifdef _WIN32
 #define _CRT_SECURE_NO_WARNINGS
