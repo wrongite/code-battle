@@ -7,10 +7,10 @@
 #define A2I(c)		((c) - '0')
 
 #define I2A(chptr, data) do { \
-	--chptr; \
-	*chptr = (data % 10 + '0'); \
-	data /= 10; \
-} while(data > 0)
+	--(chptr); \
+	*(chptr) = ((data) % 10 + '0'); \
+	(data) /= 10; \
+} while((data) > 0)
 
 
 #include <stdint.h>
@@ -49,7 +49,7 @@ int main(int argc, char** argv)
 	FILE* fNumbers = fopen("numbers.txt", "r");
 	FILE* fresult = fopen("run_result.txt", "w");
 
-	int32_t currentNumber = 0;
+	int32_t currentNumber = 1;
 	int ch;
 
 
@@ -58,26 +58,22 @@ int main(int argc, char** argv)
 			uint32_t key1 = currentNumber / keymax2;
 			uint32_t key2 = currentNumber % keymax2;
 			Dict::iterator kit = data.find(key1);
+			
 			uint32_t* &subarray = data[key1];
-			if(kit != data.end()) {
-				subarray[key2] += 1;
-
-				if(subarray[key2] == 2) {
-					resultHeader = new Result(currentNumber, &subarray[key2], resultHeader);
-				}
-			}
-			else {
+			if(kit == data.end()) {
 				subarray = new uint32_t[keymax2];
 				memset(subarray, 0, sizeof(uint32_t) * keymax2);
-				subarray[key2] = 1;
+			}
+			
+			uint32_t &currentCounter = subarray[key2];
+			currentCounter += 1;
+			if(currentCounter == 2) {
+				resultHeader = new Result(currentNumber, &currentCounter, resultHeader);
 			}
 
 			currentNumber = 1;
 		}
-		else if(ch == '\r') {
-
-		}
-		else {
+		else if(ch != '\r') {
 			currentNumber = (currentNumber * 10) + A2I(ch);
 		}
 	}
