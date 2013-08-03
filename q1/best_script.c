@@ -14,6 +14,7 @@ typedef uint32_t (*data_ptr)[2];
 data_ptr result_ptr;
 uint32_t result_header_index = 0;
 uint32_t result_data[10000][2] = {{0}};
+data_ptr result_header_ptr = result_data;
 char result_line[6] = "\0\0\0\0\n";
 
 int main(int argc, char** argv)
@@ -27,26 +28,27 @@ int main(int argc, char** argv)
 	int ch;
 
 	while((ch = getc(fNumbers)) != EOF) {
+		data_ptr current_ptr;
 		if(ch == '\n' || ch == '\r') {
 			continue;
 		}
 		current_number = A2I(ch) * 1000 + A2I(getc(fNumbers)) * 100 + A2I(getc(fNumbers)) * 10 + A2I(getc(fNumbers));
-		
-		if(current_number <= result_header_index) {
-			result_header_index += result_data[result_header_index][0] + 1;
-		}
-		else {
-			data_ptr current_ptr = &result_data[current_number];
+		current_ptr = result_data + current_number;
+
+		if(current_ptr > result_header_ptr){
 			data_ptr prev_ptr = current_ptr - (*current_ptr)[1] - 1;
 			data_ptr next_ptr = current_ptr + (*current_ptr)[0] + 1;
 
 			(*prev_ptr)[0] = (next_ptr - prev_ptr - 1);
 			(*next_ptr)[1] = (*prev_ptr)[0];
 		}
+		else if(current_ptr == result_header_ptr) {
+			result_header_ptr += (*result_header_ptr)[0] + 1;
+		}
 	}
 
-	result_index = result_header_index;
-	result_ptr = result_data + result_header_index;
+	result_index = result_header_ptr - result_data;
+	result_ptr = result_header_ptr;
 
 	while(result_index < 10000) {
 		uint32_t next_offset = (*result_ptr)[0] + 1;
