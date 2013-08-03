@@ -1,4 +1,4 @@
-// g++ -std=c++0x -Wall -O2 -o best_script best_script.cpp 
+// g++ -std=c++0x -Wall -O3 -o best_script best_script.cpp 
 
 #ifdef _WIN32
 #define _CRT_SECURE_NO_WARNINGS
