@@ -8,52 +8,59 @@
 
 #include <stdint.h>
 #include <stdio.h>
-int32_t g_header = 0;
-int32_t g_result[10000][2] = {{0}};
-char resultLine[6] = "\0\0\0\0\n";
+
+typedef uint32_t (*data_ptr)[2];
+
+data_ptr result_ptr;
+uint32_t result_header_index = 0;
+uint32_t result_data[10000][2] = {{0}};
+char result_line[6] = "\0\0\0\0\n";
 
 int main(int argc, char** argv)
 {
 	FILE* fNumbers = fopen("numbers.txt", "r");
 	FILE* fresult = fopen("run_result.txt", "w");
 
-	int32_t resultIndex;
-	int32_t currentNumber;
-	int32_t ch;
+	uint32_t result_index;
+	uint32_t current_number;
 	
+	int ch;
 
 	while((ch = getc(fNumbers)) != EOF) {
 		if(ch == '\n' || ch == '\r') {
 			continue;
 		}
-		currentNumber = A2I(ch) * 1000 + A2I(getc(fNumbers)) * 100 + A2I(getc(fNumbers)) * 10 + A2I(getc(fNumbers));
+		current_number = A2I(ch) * 1000 + A2I(getc(fNumbers)) * 100 + A2I(getc(fNumbers)) * 10 + A2I(getc(fNumbers));
 		
-		if(currentNumber <= g_header) {
-			g_header += g_result[g_header][0] + 1;
+		if(current_number <= result_header_index) {
+			result_header_index += result_data[result_header_index][0] + 1;
 		}
 		else {
-			int32_t prevIndex = currentNumber + g_result[currentNumber][1] - 1;
-			int32_t nextIndex = currentNumber + g_result[currentNumber][0] + 1;
+			data_ptr current_ptr = &result_data[current_number];
+			data_ptr prev_ptr = current_ptr - (*current_ptr)[1] - 1;
+			data_ptr next_ptr = current_ptr + (*current_ptr)[0] + 1;
 
-			g_result[prevIndex][0] = nextIndex - prevIndex - 1;
-			g_result[nextIndex][1] = -g_result[prevIndex][0];
+			(*prev_ptr)[0] = (next_ptr - prev_ptr - 1);
+			(*next_ptr)[1] = (*prev_ptr)[0];
 		}
 	}
 
+	result_index = result_header_index;
+	result_ptr = result_data + result_header_index;
 
-	resultIndex = g_header;
+	while(result_index < 10000) {
+		uint32_t next_offset = (*result_ptr)[0] + 1;
 
-	while(0 <= resultIndex  && resultIndex < 9999) {
-		resultLine[0] = (resultIndex /1000 % 10 + '0');
-		resultLine[1] = (resultIndex /100 % 10 + '0');
-		resultLine[2] = (resultIndex /10 % 10 + '0');
-		resultLine[3] = (resultIndex  % 10 + '0');
+		result_line[0] = ('0' + result_index /1000 % 10);
+		result_line[1] = ('0' + result_index /100 % 10);
+		result_line[2] = ('0' + result_index /10 % 10);
+		result_line[3] = ('0' + result_index  % 10);
 
-		fputs(resultLine, fresult);
+		fputs(result_line, fresult);
 
-		resultIndex += g_result[resultIndex][0] + 1;
+		result_ptr += next_offset;
+		result_index += next_offset;
 	}
-
 
 	fclose(fresult);
 	fclose(fNumbers);
