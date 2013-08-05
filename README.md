@@ -42,7 +42,7 @@ Follow steps below to submit your answers/scripts.
 
 2. Put your script that solve the problem into that folder, name the script file “best_script.*”
 
-3. Your script must generate the run result as “run_result.txt” into the same folder.
+3. Your script must generate the run result as “run_result.txt” into the same folder. You can see sample of the answer format at   https://github.com/juacompe/code_battle_sample.
 
 4. Encapsulate every (answer) folders into one folder/ Put it on Github. See example at https://github.com/juacompe/code_battle_sample.
 
@@ -66,7 +66,7 @@ Problems
 
 2. ใส่ script ที่แก้โจทย์ของคุณเอาไว้ในโฟลเดอร์นี้ โดยตั้งชื่อไฟล์ว่า "best_script.*"
 
-3. Script ของคุณจะต้องบันทึกคำตอบเอาไว้ในไฟล์ชื่อ "run_result.txt" และเก็บไว้ในโฟลเดอร์เดียวกันกับไฟล์ข้อมูล
+3. Script ของคุณจะต้องบันทึกคำตอบเอาไว้ในไฟล์ชื่อ "run_result.txt" และเก็บไว้ในโฟลเดอร์เดียวกันกับไฟล์ข้อมูล  สามารถดู format ของคำตอบได้ที่  https://github.com/juacompe/code_battle_sample.
 
 4. รวบรวมทุกโฟลเดอร์ของคุณเอาไว้ แล้วนำไปไว้ที่ ไปไว้ที่ GitHub ดูตัวอย่างได้ที่ https://github.com/juacompe/code_battle_sample.
 
